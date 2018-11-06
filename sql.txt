@@ -1,0 +1,376 @@
+-- phpMyAdmin SQL Dump
+-- version 4.7.4
+-- https://www.phpmyadmin.net/
+--
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 17-05-2018 a las 05:28:54
+-- Versión del servidor: 10.1.30-MariaDB
+-- Versión de PHP: 7.2.1
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Base de datos: `samantha`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `article`
+--
+
+CREATE TABLE `article` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `description` varchar(250) NOT NULL,
+  `price` float NOT NULL,
+  `cost` float NOT NULL,
+  `image` varchar(1024) NOT NULL,
+  `info` varchar(1024) DEFAULT NULL,
+  `category_id` int(10) UNSIGNED NOT NULL,
+  `quantity` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `discount` float NOT NULL DEFAULT '0',
+  `color` varchar(256) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `article`
+--
+
+INSERT INTO `article` (`id`, `name`, `description`, `price`, `cost`, `image`, `info`, `category_id`, `quantity`, `discount`, `color`, `created_at`, `updated_at`) VALUES
+(1, 'vestido', 'vestido para dama', 450, 300, 'FB_IMG_1524519810640.jpg', 'vestido negro, con estampado floreado', 2, 1, 5, 'negro', '2018-05-16 08:13:30', '2018-05-16 08:13:30'),
+(3, 'tennis', 'tennis negros Reebok', 1800, 2500, 'CN5733_00_eCom.jpg', 'tennis negros Reebok', 3, 2, 10, 'negro', '2018-05-16 08:20:48', '2018-05-16 08:20:48'),
+(4, 'Blusa', 'blusa para dama (azul y amarilla)', 300, 250, 'FB_IMG_1524519826746.jpg', 'lavar a mano', 4, 3, 10, 'amarillo, azul', '2018-05-16 08:27:34', '2018-05-16 08:27:34'),
+(5, 'Jumper', 'Jumper rosa', 530, 500, 'FB_IMG_1524519778876.jpg', 'Jumper para dama lavar a mano', 2, 1, 10, 'rosa', '2018-05-16 08:31:16', '2018-05-16 08:31:16');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `category`
+--
+
+CREATE TABLE `category` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `gender_id` int(10) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `category`
+--
+
+INSERT INTO `category` (`id`, `name`, `description`, `gender_id`, `created_at`, `updated_at`) VALUES
+(1, 'Sudadera', 'Desc sudadera', 1, '2018-05-16 07:36:50', '2018-05-16 07:36:50'),
+(2, 'vestido', 'vestido para dama', 2, '2018-05-16 08:07:41', '2018-05-16 08:07:41'),
+(3, 'tennis', 'tennis negros Reebok', 1, '2018-05-16 08:18:03', '2018-05-16 08:18:03'),
+(4, 'Blusa', 'blusa para dama', 2, '2018-05-16 08:25:16', '2018-05-16 08:25:16');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `gender`
+--
+
+CREATE TABLE `gender` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(45) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `gender`
+--
+
+INSERT INTO `gender` (`id`, `name`, `created_at`, `updated_at`) VALUES
+(1, 'Hombre', '2018-05-16 07:36:18', '2018-05-16 07:36:18'),
+(2, 'Mujer', '2018-05-16 08:03:10', '2018-05-16 08:03:10');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `order`
+--
+
+CREATE TABLE `order` (
+  `id` int(11) NOT NULL,
+  `ordered_article_id` int(10) UNSIGNED NOT NULL,
+  `user_id` int(10) UNSIGNED NOT NULL,
+  `paid` tinyint(4) NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `status_id` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `ordered_article`
+--
+
+CREATE TABLE `ordered_article` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `article_id` int(10) UNSIGNED NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `order_status`
+--
+
+CREATE TABLE `order_status` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `status` varchar(45) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `size`
+--
+
+CREATE TABLE `size` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `size` varchar(10) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `size`
+--
+
+INSERT INTO `size` (`id`, `size`, `created_at`, `updated_at`) VALUES
+(1, 'EG', '2018-05-16 07:36:04', '2018-05-16 07:36:04'),
+(2, 'G', '2018-05-16 07:57:44', '2018-05-16 07:57:44'),
+(3, 'M', '2018-05-16 07:58:16', '2018-05-16 07:58:16'),
+(4, 'S', '2018-05-16 07:58:34', '2018-05-16 07:58:34'),
+(5, 'S', '2018-05-16 07:58:34', '2018-05-16 07:58:34');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `sizes_article`
+--
+
+CREATE TABLE `sizes_article` (
+  `article_id` int(10) UNSIGNED NOT NULL,
+  `size_id` int(10) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `sizes_article`
+--
+
+INSERT INTO `sizes_article` (`article_id`, `size_id`, `created_at`, `updated_at`) VALUES
+(1, 3, NULL, NULL),
+(1, 3, '2018-05-16 08:13:30', '2018-05-16 08:13:30'),
+(3, 4, NULL, NULL),
+(3, 4, '2018-05-16 08:20:48', '2018-05-16 08:20:48'),
+(4, 3, NULL, NULL),
+(4, 3, '2018-05-16 08:27:34', '2018-05-16 08:27:34'),
+(5, 2, NULL, NULL),
+(5, 2, '2018-05-16 08:31:16', '2018-05-16 08:31:16');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(60) NOT NULL,
+  `last_name` varchar(60) NOT NULL,
+  `email` varchar(250) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  `admin` tinyint(1) NOT NULL DEFAULT '0',
+  `remember_token` varchar(100) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `last_name`, `email`, `password`, `admin`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Mariela', 'Aguilar Jasso', 'marielaaguila54@gmail.com', '$2y$10$8a6MDL2lCXVME/0IVPOWyO7g2P3C7dDTx5xVQIQiavmIRlzFrylji', 0, 'vTvG5lNmIge9uoVOlEBSscZaB3IDVxRQEpGmUp4z43KGndxznjrTi7vR7CUp', '2018-05-16 07:35:12', '2018-05-16 07:35:12'),
+(2, 'Jesus Eduardo', 'Quiroz Palomo', 'quirozeduardo425@gmail.com', '$2y$10$zQXnSPPZjqqHk9F.8F4yQ.kFMSDHUWMvURIg3hvu8pxHo5xVIIywa', 0, NULL, '2018-05-16 09:34:23', '2018-05-16 09:34:23'),
+(3, 'Daniela', 'Perez', 'daniela@gmail.com', '$2y$10$9K.wR.iBlpPH3KloX7Ry0OzRfKAaMErpiu.omUwcDbCXQqAZkNaLG', 0, 'bYoy17jdQhFCBLb3T9dy8CJDOX4XDgzZCgMZrx76tXZFNrEEEayUgv0D2272', '2018-05-17 05:16:35', '2018-05-17 05:16:35');
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `article`
+--
+ALTER TABLE `article`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_articke_category_idx` (`category_id`);
+
+--
+-- Indices de la tabla `category`
+--
+ALTER TABLE `category`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_category_gender_idx` (`gender_id`);
+
+--
+-- Indices de la tabla `gender`
+--
+ALTER TABLE `gender`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `order`
+--
+ALTER TABLE `order`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_order_ordered_Article_idx` (`ordered_article_id`),
+  ADD KEY `id_order_user_idx` (`user_id`),
+  ADD KEY `fk_order_order_status_idx` (`status_id`);
+
+--
+-- Indices de la tabla `ordered_article`
+--
+ALTER TABLE `ordered_article`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_order_article_idx` (`article_id`);
+
+--
+-- Indices de la tabla `order_status`
+--
+ALTER TABLE `order_status`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `size`
+--
+ALTER TABLE `size`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `sizes_article`
+--
+ALTER TABLE `sizes_article`
+  ADD KEY `fk_sizes_articles_article_idx` (`article_id`),
+  ADD KEY `fk_sizes_articles_size_idx` (`size_id`);
+
+--
+-- Indices de la tabla `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email_UNIQUE` (`email`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `article`
+--
+ALTER TABLE `article`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de la tabla `category`
+--
+ALTER TABLE `category`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de la tabla `gender`
+--
+ALTER TABLE `gender`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `ordered_article`
+--
+ALTER TABLE `ordered_article`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `order_status`
+--
+ALTER TABLE `order_status`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `size`
+--
+ALTER TABLE `size`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de la tabla `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `article`
+--
+ALTER TABLE `article`
+  ADD CONSTRAINT `fk_articke_category` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `category`
+--
+ALTER TABLE `category`
+  ADD CONSTRAINT `fk_category_gender` FOREIGN KEY (`gender_id`) REFERENCES `gender` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `order`
+--
+ALTER TABLE `order`
+  ADD CONSTRAINT `fk_order_order_status` FOREIGN KEY (`status_id`) REFERENCES `order_status` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_order_ordered_Article` FOREIGN KEY (`ordered_article_id`) REFERENCES `ordered_article` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_order_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `ordered_article`
+--
+ALTER TABLE `ordered_article`
+  ADD CONSTRAINT `fk_ordered_article_article` FOREIGN KEY (`article_id`) REFERENCES `article` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `sizes_article`
+--
+ALTER TABLE `sizes_article`
+  ADD CONSTRAINT `fk_sizes_articles_article` FOREIGN KEY (`article_id`) REFERENCES `article` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_sizes_articles_size` FOREIGN KEY (`size_id`) REFERENCES `size` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
