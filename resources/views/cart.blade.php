@@ -1,6 +1,10 @@
 @extends('layouts.main')
 @section('title','Carrito de compra')
 @section('content')
+    @php
+        $totalWithDiscount = 0;
+        $tempPriceWithDoiscount = 0;
+    @endphp
     <div class="row">
         @if(isset($articles)&&($articles->count()>0))
         <div class="col-sm-12">
@@ -28,7 +32,7 @@
                                     <s class="oldprice">${{$article->price}} MXN</s>
                                     <br>
                                     @if($article->discount>0)
-                                    <span class="newprice">${{($article->price)-(($article->price*$article->discount)/100)}} MXN</span>
+                                    <span class="newprice">${{$tempPriceWithDoiscount = ($article->price)-(($article->price*$article->discount)/100)}} MXN</span>
                                     <br>
                                     <span class="discount">-{{$article->discount}}% </span>
                                     @endif
@@ -42,11 +46,14 @@
                                     <s class="oldprice">${{$article->price}} MXN</s>
                                     <br>
                                     @if($article->discount>0)
-                                    <span class="newprice">${{($article->price)-(($article->price*$article->discount)/100)}} MXN</span>
+                                    <span class="newprice">${{$tempPriceWithDoiscount}} MXN</span>
                                     @endif
                                 </p>
                             </div>
                         </div>
+                        @php
+                            $totalWithDiscount += $tempPriceWithDoiscount;
+                        @endphp
                     @endforeach
                     <div class="col-sm-12 row">
                         <div class="col-md-9">
@@ -55,11 +62,11 @@
                             <div class="row">
                                 <div class="col-12">
                                     <strong class="float-left">Subtotal</strong>
-                                    <span class="float-right">${{$price=$articles->sum('price')}}</span>
+                                    <span class="float-right">${{ $price = $totalWithDiscount }}</span>
                                 </div>
                                 <div class="col-12">
                                     <strong class="float-left">IVA</strong>
-                                    <span class="float-right">${{$iva=$articles->sum('price')*0.16}}</span>
+                                    <span class="float-right">${{ $iva = $totalWithDiscount * 0.16 }}</span>
                                 </div>
                                 <div class="col-12">
                                     <strong class="float-left">TOTAL</strong>
