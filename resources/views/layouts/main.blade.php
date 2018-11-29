@@ -102,47 +102,60 @@
 
             </div>
             <div class="col-3">
+                @php
+                    $clima = \App\Http\Controllers\HomeController::getClima('San Luis Potosi');
+                @endphp
                 <div class="climaAnimation">
-                    <div class="icon sun-shower">
-                        <div class="cloud"></div>
-                        <div class="sun">
-                            <div class="rays"></div>
-                        </div>
-                        <div class="rain"></div>
-                    </div>
-
-                    <div class="icon thunder-storm">
-                        <div class="cloud"></div>
-                        <div class="lightning">
-                            <div class="bolt"></div>
-                            <div class="bolt"></div>
-                        </div>
-                    </div>
-
-                    <div class="icon cloudy">
-                        <div class="cloud"></div>
-                        <div class="cloud"></div>
-                    </div>
-
-                    <div class="icon flurries">
-                        <div class="cloud"></div>
-                        <div class="snow">
-                            <div class="flake"></div>
-                            <div class="flake"></div>
-                        </div>
-                    </div>
-
-                    <div class="icon sunny">
-                        <div class="sun">
-                            <div class="rays"></div>
-                        </div>
-                    </div>
-
-                    <div class="icon rainy">
-                        <div class="cloud"></div>
-                        <div class="rain"></div>
-                    </div>
-
+                    @if($clima != null)
+                        <h4 class="text-white">Temperatura: {{ $clima['temp'] }} ℃</h4>
+                    @if($clima['tiempo'] == 'soleado')
+                            <div class="icon sunny">
+                                <div class="sun">
+                                    <div class="rays"></div>
+                                </div>
+                            </div>
+                    @elseif($clima['tiempo'] == 'soleado-lluvia')
+                            <div class="icon sun-shower">
+                                <div class="cloud"></div>
+                                <div class="sun">
+                                    <div class="rays"></div>
+                                </div>
+                                <div class="rain"></div>
+                            </div>
+                    @elseif($clima['tiempo'] == 'tormenta-electrica')
+                            <div class="icon thunder-storm">
+                                <div class="cloud"></div>
+                                <div class="lightning">
+                                    <div class="bolt"></div>
+                                    <div class="bolt"></div>
+                                </div>
+                            </div>
+                    @elseif($clima['tiempo'] == 'nublado')
+                            <div class="icon cloudy">
+                                <div class="cloud"></div>
+                                <div class="cloud"></div>
+                            </div>
+                    @elseif($clima['tiempo'] == 'lluvia')
+                            <div class="icon rainy">
+                                <div class="cloud"></div>
+                                <div class="rain"></div>
+                            </div>
+                    @elseif($clima['tiempo'] == 'rafagas')
+                            <div class="icon flurries">
+                                <div class="cloud"></div>
+                                <div class="snow">
+                                    <div class="flake"></div>
+                                    <div class="flake"></div>
+                                </div>
+                            </div>
+                    @else
+                            <div class="icon sunny">
+                                <div class="sun">
+                                    <div class="rays"></div>
+                                </div>
+                            </div>
+                    @endif
+                    @endif
                 </div>
 
             </div>

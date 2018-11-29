@@ -1,4 +1,4 @@
-@extends('layouts.samantha')
+@extends('layouts.main')
 @section('content')
     @if(\App\Http\Controllers\CartController::cartArticles()->count()>0)
     <div class="row">
