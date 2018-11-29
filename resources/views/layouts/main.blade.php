@@ -61,11 +61,11 @@
                             </div>
                         </li>
                     </ul>
-                    <form class="navbar-form navbar-left" role="search">
+                    <div class="navbar-form navbar-left">
                         <div class="input-group">
-                            <input type="text" class="form-control" id="search" placeholder="Buscar">
+                            <input type="text" class="form-control" id="word" placeholder="Buscar">
                         </div>
-                    </form>
+                    </div>
                     <div class="mr-3 ml-3">
                         <a class="text-light" href="{{ URL::to('/cart') }}">
                             <i class="ion-bag"></i> CARRITO ({{\App\Http\Controllers\CartController::getCountArticlesInCart()}})
@@ -165,6 +165,19 @@
 {!!Html::script('js/jquery-3.3.1.min.js')!!}
 {!!Html::script('js/popper.min.js')!!}
 {!!Html::script('bootstrap/js/bootstrap.min.js')!!}
+
+<script !src="">
+    $(document).ready(function () {
+        $('#word').keypress(function(e) {
+            if(e.which == 13) {
+                var value = $(this).val();
+                if (value.length > 0) {
+                    window.location.href = '{{ URL::to('filter/search/') }}' + '/' + value;
+                }
+            }
+        });
+    });
+</script>
 
 @yield('script')
 

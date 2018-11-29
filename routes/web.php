@@ -18,7 +18,9 @@ Route::get('/cart/add/{articleId}','CartController@addToCart');
 Route::get('/cart/remove/{articleId}','CartController@removeToCart');
 Route::get('/article/{id}','ArticleView');
 Route::resource('/profile','ProfileController');
+Route::get('/filter/search/{word}','Filtered@search')->name('filter.search');
 Route::get('/filter/{gender}/{category}','Filtered');
+
 
 Route::get('/pay/card','PayController@card')->middleware('auth');
 Route::get('/pay/card/payed','PayController@payed')->middleware('auth');

@@ -38,4 +38,16 @@ class Filtered extends Controller
         return view('filtered')
             ->with('articles',$articles);
     }
+    public function search($word)
+    {
+        $articles=Article::where('name','like','%'.$word.'%')->get();
+
+        if($articles->count()>0)
+            Flash::success('Varios articulos encontrados');
+        else
+            Flash::error('No se encontraron articulos');
+
+        return view('filtered')
+            ->with('articles',$articles);
+    }
 }
