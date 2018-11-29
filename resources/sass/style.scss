@@ -1,4 +1,3 @@
-@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 .bg-dark{
     background-color: #000000;
 }
@@ -83,7 +82,7 @@ section .section-title {
     text-transform: uppercase;
 }
 #footer {
-    background: #000000 !important;
+    background: $dark !important;
 }
 #footer h5{
     padding-left: 10px;

@@ -8,9 +8,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <title>{{ config('app.name') }} - @yield('title')</title>
-    {!!Html::style('/bootstrap/css/bootstrap.min.css')!!}
     {!!Html::style('/ionicons/css/ionicons.min.css')!!}
-    {!!Html::style('/css/styles.css')!!}
+    {!!Html::style('/css/app.css')!!}
 
     @yield('css')
 
@@ -98,8 +97,53 @@
     <section class="content">
         @include('flash::message')
         <div class="row">
-            <div class="col-12">
+            <div class="col-9">
                 @yield('content')
+
+            </div>
+            <div class="col-3">
+                <div class="climaAnimation">
+                    <div class="icon sun-shower">
+                        <div class="cloud"></div>
+                        <div class="sun">
+                            <div class="rays"></div>
+                        </div>
+                        <div class="rain"></div>
+                    </div>
+
+                    <div class="icon thunder-storm">
+                        <div class="cloud"></div>
+                        <div class="lightning">
+                            <div class="bolt"></div>
+                            <div class="bolt"></div>
+                        </div>
+                    </div>
+
+                    <div class="icon cloudy">
+                        <div class="cloud"></div>
+                        <div class="cloud"></div>
+                    </div>
+
+                    <div class="icon flurries">
+                        <div class="cloud"></div>
+                        <div class="snow">
+                            <div class="flake"></div>
+                            <div class="flake"></div>
+                        </div>
+                    </div>
+
+                    <div class="icon sunny">
+                        <div class="sun">
+                            <div class="rays"></div>
+                        </div>
+                    </div>
+
+                    <div class="icon rainy">
+                        <div class="cloud"></div>
+                        <div class="rain"></div>
+                    </div>
+
+                </div>
 
             </div>
         </div>
@@ -162,16 +206,17 @@
     </div>
 </section>
 
-{!!Html::script('js/jquery-3.3.1.min.js')!!}
-{!!Html::script('js/popper.min.js')!!}
-{!!Html::script('bootstrap/js/bootstrap.min.js')!!}
+{!!Html::script('js/app.js')!!}
 
 <script !src="">
-    $(document).ready(function () {
-        $('#word').keypress(function(e) {
+    $(document).ready(function ()
+    {
+        $('#word').keypress(function(e)
+        {
             if(e.which == 13) {
                 var value = $(this).val();
-                if (value.length > 0) {
+                if (value.length > 0)
+                {
                     window.location.href = '{{ URL::to('filter/search/') }}' + '/' + value;
                 }
             }
