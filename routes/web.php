@@ -13,9 +13,10 @@
 
 Auth::routes();
 Route::get('/', 'IndexController');
-Route::get('/cart','CartController');
+Route::get('/cart','CartController@index');
 Route::get('/cart/add/{articleId}','CartController@addToCart');
 Route::get('/cart/remove/{articleId}','CartController@removeToCart');
+Route::post('/cart/changeQuantity/','CartController@changeQuantity');
 Route::get('/article/{id}','ArticleView');
 Route::resource('/profile','ProfileController');
 Route::get('/filter/search/{word}','Filtered@search')->name('filter.search');

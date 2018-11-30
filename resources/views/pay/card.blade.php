@@ -1,6 +1,9 @@
 @extends('layouts.main')
 @section('content')
     @if(\App\Http\Controllers\CartController::cartArticles()->count()>0)
+        @php
+            $arts = \App\Http\Controllers\CartController::getArticlesCookies();
+        @endphp
     <div class="row">
         <div class="col-xs-12 col-md-7">
             <div class="row">
@@ -43,9 +46,17 @@
                     @foreach(\App\Http\Controllers\CartController::cartArticles() as $article)
                         <tr>
                             <td class="col-md-9"><em>{{$article->name}}</em></td>
-                            <td class="col-md-1" style="text-align: center">1 </td>
-                            <td class="col-md-1 text-center">${{$article->price}}</td>
-                            <td class="col-md-1 text-center">${{$article->price}}</td>
+                            @php
+                                $value = 0;
+                                for ($i = 0; $i<sizeof($arts); $i++){
+                                    if($article->id.'' == $arts[$i]->id){
+                                        $value = $arts[$i]->quantity;
+                                    }
+                                }
+                            @endphp
+                            <td class="col-md-1" style="text-align: center">{{ $value }} </td>
+                            <td class="col-md-1 text-center">${{$article->price * $value}}</td>
+                            <td class="col-md-1 text-center">${{$article->price * $value}}</td>
                         </tr>
                     @endforeach
                     <tr>

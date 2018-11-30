@@ -10,7 +10,7 @@ use Laracasts\Flash\Flash;
 class CartController extends Controller
 {
 
-    function __invoke(Request $request)
+    function index(Request $request)
     {
         $articles=self::cartArticles();
 
@@ -24,78 +24,104 @@ class CartController extends Controller
         Cookie::queue(Cookie::forget('cartAdded'));
     }
     public static function cartArticles(){
-        $arrayArticlesId=array();
+        $arrayArticlesIdInt=array();
         $cookieGet = Cookie::get('cartAdded');
         if(isset($cookieGet)){
         $arrayGetCookie=json_decode($cookieGet);
-        foreach ($arrayGetCookie as $id) {
-        $arrayArticlesId[]=$id;
-        }
-        }
-        $arrayArticlesIdInt=array();
-        foreach ($arrayArticlesId as $articleId){
-            $arrayArticlesIdInt[]=(int)$articleId;
+            foreach ($arrayGetCookie as $articleId){
+                $arrayArticlesIdInt[]=(int)$articleId->id;
+            }
         }
         $articles=Article::whereIn('id',$arrayArticlesIdInt)->get();
         return $articles;
     }
+    public static function getArticlesCookies()
+    {
+        $arr = array();
+        $cookieGet = Cookie::get('cartAdded');
+        if(isset($cookieGet)) {
+            $arr = json_decode($cookieGet);
+        }
+        return $arr;
+    }
     function addToCart($articleId){
 
         $article=Article::where('id',$articleId)->first();
-        $arrayArticlesId=array();
         if($article){
             $minutes=1*60*1000;
 
             $cookieGet = Cookie::get('cartAdded');
             if(isset($cookieGet)){
                 $arrayGetCookie=json_decode($cookieGet);
-                foreach ($arrayGetCookie as $id) {
-                    $arrayArticlesId[]=$id;
+                $repeated = false;
+                for ($i = 0; $i<sizeof($arrayGetCookie); $i++)
+                {
+                    if($arrayGetCookie[$i]->id==($articleId.''))
+                    {
+                        $arrayGetCookie[$i]->quantity += 1;
+                        $repeated = true;
+                        break;
+                    }
                 }
-                if(!in_array($articleId,$arrayArticlesId))
-                    $arrayArticlesId[]=$articleId;
-                $jsonEncodeArticlesId=json_encode($arrayArticlesId);
-                Cookie::queue(Cookie::make("cartAdded",$jsonEncodeArticlesId));
+                if(!$repeated)
+                {
+                    array_push($arrayGetCookie,array(
+                        'id' => ''.$articleId,
+                        'quantity' => 1
+                    ));
+                }
+                Cookie::queue(Cookie::make("cartAdded",json_encode($arrayGetCookie)));
             }else{
-                $arrayArticlesId[]=$articleId;
-                $jsonEncodeArticlesId=json_encode($arrayArticlesId);
-                Cookie::queue(Cookie::make("cartAdded",$jsonEncodeArticlesId,$minutes));
+                $arrayToEncode = array();
+                array_push($arrayToEncode,array(
+                    'id' => ''.$articleId,
+                    'quantity' => 1
+                ));
+                Cookie::queue(Cookie::make("cartAdded",json_encode($arrayToEncode),$minutes));
             }
 
             return redirect('cart');
         }
-        
+
+    }
+    public function changeQuantity(Request $request){
+        $articleId = $request->input('articleId');
+        $quantity = $request->input('quantity');
+        $article=Article::where('id',$articleId)->first();
+        if($article) {
+            $cookieGet = Cookie::get('cartAdded');
+            if (isset($cookieGet)) {
+                $arrayGetCookie = json_decode($cookieGet);
+                for ($i = 0; $i < sizeof($arrayGetCookie); $i++) {
+                    if ($arrayGetCookie[$i]->id == ($articleId . '')) {
+                        $arrayGetCookie[$i]->quantity = $quantity;
+                        break;
+                    }
+                }
+                Cookie::queue(Cookie::make("cartAdded", json_encode($arrayGetCookie)));
+            }
+        }
+        return redirect('cart');
     }
     function removeToCart($articleId){
             $cookieGet = Cookie::get('cartAdded');
             if(isset($cookieGet)){
 
-
                 $arrayGetCookie=json_decode($cookieGet);
-                foreach ($arrayGetCookie as $id) {
-                    $arrayArticlesId[]=$id;
+                for ($i = 0; $i<sizeof($arrayGetCookie); $i++) {
+                    if($arrayGetCookie[$i]->id==($articleId.'')) {
+                        unset($arrayGetCookie[$i]);
+                    }
                 }
-                $arrayArticlesId=array_diff($arrayArticlesId,array($articleId));
-                $jsonEncodeArticlesId=json_encode($arrayArticlesId);
-                Cookie::queue(Cookie::make("cartAdded",$jsonEncodeArticlesId));
+                Cookie::queue(Cookie::make("cartAdded",json_encode($arrayGetCookie)));
             }
             return redirect('cart');
     }
     public static function getCountArticlesInCart(){
-
         $cookieGet = Cookie::get('cartAdded');
         if(isset($cookieGet)){
-            $arrayArticlesId=array();
             $arrayGetCookie=json_decode($cookieGet);
-            foreach ($arrayGetCookie as $id) {
-                $arrayArticlesId[]=$id;
-            }
-            $arrayArticlesIdInt=array();
-            foreach ($arrayArticlesId as $articleId){
-                $arrayArticlesIdInt[]=(int)$articleId;
-            }
-            $articlesCount=Article::whereIn('id',$arrayArticlesIdInt)->count();
-            return $articlesCount;
+            return sizeof($arrayGetCookie);
         }else
             return 0;
     }

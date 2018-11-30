@@ -4,6 +4,7 @@
     @php
         $totalWithDiscount = 0;
         $tempPriceWithDoiscount = 0;
+        $arts = \App\Http\Controllers\CartController::getArticlesCookies();
     @endphp
     <div class="row">
         @if(isset($articles)&&($articles->count()>0))
@@ -39,7 +40,23 @@
                                 </p>
                             </div>
                             <div class="col">
-                                <input class="form-control" type="number" value="1" >
+                                @php
+                                    $value = 0;
+                                    for ($i = 0; $i<sizeof($arts); $i++){
+                                        if($article->id.'' == $arts[$i]->id){
+                                            $value = $arts[$i]->quantity;
+                                        }
+                                    }
+                                @endphp
+                                <form id="form-{{ $article->id }}" action="{{ URL::to('cart/changeQuantity') }}" method="post">
+                                    {{ csrf_field() }}
+                                    <input type="hidden" name="articleId" value="{{ $article->id }}">
+                                    <select name="quantity" onchange="$('#form-{{ $article->id }}').submit()">
+                                        @for($i = 1; $i<=10; $i++)
+                                            <option value="{{ $i }}" {{ ($value == $i)?'selected': '' }}>{{ $i }}</option>
+                                        @endfor
+                                    </select>
+                                </form>
                             </div>
                             <div class="col text-center">
                                 <p>

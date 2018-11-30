@@ -12,7 +12,6 @@
     {!!Html::style('/css/app.css')!!}
 
     @yield('css')
-
 </head>
 <body>
 <div class="container-fluid fixed-top container-header">
@@ -169,7 +168,7 @@
             <div class="col-xs-12 col-sm-4 col-md-4">
                 <h5>Contactanos</h5>
                 <ul class="list-unstyled quick-links">
-                    <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Samantha</a></li>
+                    <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Seasson</a></li>
                     <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Legal</a></li>
                     <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Empresas</a></li>
                     <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Contactanos</a></li>
@@ -179,7 +178,7 @@
             <div class="col-xs-12 col-sm-4 col-md-4">
                 <h5>Conocenos</h5>
                 <ul class="list-unstyled quick-links">
-                    <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Samantha</a></li>
+                    <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Seasson</a></li>
                     <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Legal</a></li>
                     <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Empresas</a></li>
                     <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Contactanos</a></li>
@@ -189,7 +188,7 @@
             <div class="col-xs-12 col-sm-4 col-md-4">
                 <h5>Amanos</h5>
                 <ul class="list-unstyled quick-links">
-                    <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Samantha</a></li>
+                    <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Seasson</a></li>
                     <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Legal</a></li>
                     <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Empresas</a></li>
                     <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Contactanos</a></li>
@@ -211,8 +210,8 @@
         </div>
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center text-white">
-                <p>Samantha empresa de ropa creada en San Luis Potosi, San Luis Potosi, Mexico[Samantha 2018/03/12]</p>
-                <p class="h6">&copy All right Reversed.<a class="text-green ml-2" href="https://www.sunlimetech.com" target="_blank">Sunlimetech</a></p>
+                <p>Seasson empresa de ropa creada en San Luis Potosi, San Luis Potosi, Mexico[Seasson 2018/03/12]</p>
+                <p class="h6">&copy All right Reversed.<a class="text-green ml-2" href="https://www.sunlimetech.com" target="_blank">Seasson</a></p>
             </div>
             </hr>
         </div>
