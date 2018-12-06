@@ -96,11 +96,11 @@
     <section class="content">
         @include('flash::message')
         <div class="row">
-            <div class="col-9">
+            <div class="col-md-12 col-lg-9">
                 @yield('content')
 
             </div>
-            <div class="col-3">
+            <div class="col-md-12 col-lg-3">
                 @php
                     $clima = \App\Http\Controllers\HomeController::getClima('San Luis Potosi');
                 @endphp
