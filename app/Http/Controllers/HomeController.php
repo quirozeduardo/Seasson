@@ -53,25 +53,159 @@ class HomeController extends Controller
         $nublado = 'nublado'; //Dia nublado
         $lluvia = 'lluvia';//Dia Con lluvia
         $rafagas = 'rafagas'; //Dia con Aguanieve o nieve
-        switch ($phpObj->query->results->channel->item->condition->text)
+        switch ($phpObj->query->results->channel->item->condition->code)
         {
             case '0':
                 $clima['tiempo'] = $tormenta_electrica;
                 break;
-            case '0':
+            case '1':
                 $clima['tiempo'] = $tormenta_electrica;
                 break;
-            case '0':
+            case '2':
                 $clima['tiempo'] = $tormenta_electrica;
                 break;
-
+            case '3':
+                $clima['tiempo'] = $tormenta_electrica;
+                break;
+            case '4':
+                $clima['tiempo'] = $tormenta_electrica;
+                break;
+            case '5':
+                $clima['tiempo'] = $rafagas;
+                break;
+            case '6':
+                $clima['tiempo'] = $rafagas;
+                break;
+            case '7':
+                $clima['tiempo'] = $rafagas;
+                break;
+            case '8':
+                $clima['tiempo'] = $rafagas;
+                break;
+            case '9':
+                $clima['tiempo'] = $lluvia;
+                break;
+            case '10':
+                $clima['tiempo'] = $lluvia;
+                break;
+            case '11':
+                $clima['tiempo'] = $lluvia;
+                break;
+            case '12':
+                $clima['tiempo'] = $lluvia;
+                break;
+            case '13':
+                $clima['tiempo'] = $rafagas;
+                break;
+            case '14':
+                $clima['tiempo'] = $rafagas;
+                break;
+            case '15':
+                $clima['tiempo'] = $rafagas;
+                break;
+            case '16':
+                $clima['tiempo'] = $rafagas;
+                break;
+            case '17':
+                $clima['tiempo'] = $lluvia;
+                break;
+            case '18':
+                $clima['tiempo'] = $rafagas;
+                break;
+            case '19':
+                $clima['tiempo'] = $soleado;
+                break;
+            case '20':
+                $clima['tiempo'] = $soleado;
+                break;
+            case '21':
+                $clima['tiempo'] = $soleado;
+                break;
+            case '22':
+                $clima['tiempo'] = $nublado;
+                break;
+            case '23':
+                $clima['tiempo'] = $nublado;
+                break;
+            case '24':
+                $clima['tiempo'] = $nublado;
+                break;
+            case '25':
+                $clima['tiempo'] = $rafagas;
+                break;
+            case '26':
+                $clima['tiempo'] = $nublado;
+                break;
+            case '27':
+                $clima['tiempo'] = $nublado;
+                break;
+            case '28':
+                $clima['tiempo'] = $nublado;
+                break;
+            case '29':
+                $clima['tiempo'] = $nublado;
+                break;
+            case '30':
+                $clima['tiempo'] = $nublado;
+                break;
+            case '31':
+                $clima['tiempo'] = $soleado;
+                break;
+            case '32':
+                $clima['tiempo'] = $soleado;
+                break;
+            case '33':
+                $clima['tiempo'] = $soleado;
+                break;
+            case '34':
+                $clima['tiempo'] = $soleado;
+                break;
+            case '35':
+                $clima['tiempo'] = $lluvia;
+                break;
+            case '36':
+                $clima['tiempo'] = $soleado;
+                break;
+            case '37':
+                $clima['tiempo'] = $lluvia;
+                break;
+            case '38':
+                $clima['tiempo'] = $tormenta_electrica;
+                break;
+            case '39':
+                $clima['tiempo'] = $tormenta_electrica;
+                break;
+            case '40':
+                $clima['tiempo'] = $lluvia;
+                break;
+            case '41':
+                $clima['tiempo'] = $rafagas;
+                break;
+            case '42':
+                $clima['tiempo'] = $rafagas;
+                break;
+            case '43':
+                $clima['tiempo'] = $rafagas;
+                break;
+            case '44':
+                $clima['tiempo'] = $nublado;
+                break;
+            case '45':
+                $clima['tiempo'] = $tormenta_electrica;
+                break;
+            case '46':
+                $clima['tiempo'] = $rafagas;
+                break;
+            case '47':
+                $clima['tiempo'] = $tormenta_electrica;
+                break;
 
 
 
 
             //------------FIIINNN----------
             default:
-                $clima['tiempo'] = $tormenta_electrica;
+                $clima['tiempo'] = $soleado;
                 break;
         }
         return $clima;
